@@ -94,6 +94,21 @@ namespace SelectionStatements
                     break;
             }
             WriteLine(message);
+
+            message = s switch
+            {
+                FileStream writeableFile when s.CanWrite
+                    => "The stream is a file that I can write to.",
+                FileStream readOnlyFile
+                    => "The stream is a read-only file.",
+                MemoryStream memoryStream
+                    => "The stream is a memory address",
+                null
+                    => "The stream is null",
+                _
+                    => "The stream is some other type."
+            };
+            WriteLine(message);
         }
     }
 }
