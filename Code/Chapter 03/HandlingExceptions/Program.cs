@@ -15,9 +15,17 @@ namespace HandlingExceptions
                 int age = int.Parse(input);
                 WriteLine($"You are {age} years old.");
             }
-            catch
+            catch(OverflowException)
             {
-
+                WriteLine("Your age is a valid number format but it is either too big or too small.");
+            }
+            catch(FormatException)
+            {
+                WriteLine("The age you entered is not a valid number format.");
+            }
+            catch(Exception exception)
+            {
+                WriteLine($"{exception.GetType()} says {exception.Message}");
             }
             WriteLine("After parsing");
         }
