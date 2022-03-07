@@ -1,8 +1,11 @@
 ﻿using System;
 
-namespace PacktLibrary
+namespace Packt.Shared
 {
-    public class Person
+    public class Person : object
     {
+        // Fields
+        public string Name;
+        public DateTime DateOfBirth;
     }
 }
