@@ -126,6 +126,15 @@ namespace PeopleApp
             // Simplified C# 7.0 syntax for the out parameter
             bob.PassingParameters(d, ref e, out int f);
             WriteLine($"After: d = {d}, e = {e}, f = {f}");
+
+            var sam = new Person
+            {
+                Name = "Sam",
+                DateOfBirth = new DateTime(1972, 1, 27)
+            };
+            WriteLine(sam.Origin);
+            WriteLine(sam.Greeting);
+            WriteLine(sam.Age);
         }
     }
 }
