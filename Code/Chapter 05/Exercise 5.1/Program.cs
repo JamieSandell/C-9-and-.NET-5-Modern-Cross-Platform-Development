@@ -37,6 +37,12 @@ namespace Exercise_5._1
             WriteLine("8.) What does Overloading mean?");
             WriteLine("Having the same function name with different signatures.");
             WriteLine();
+            WriteLine("9.) What is the difference between a field and a property?");
+            WriteLine("A private field would require public getters and setters, where as an auto-property does not, although they're created behind the scenes along with a pirvate backed field for you.");
+            WriteLine();
+            WriteLine("10.) How do you make a method parameter optional?");
+            WriteLine("void UpdateInfo(string name, int age = 21); age is the optional parameter");
+            WriteLine();
         }
     }
 }
