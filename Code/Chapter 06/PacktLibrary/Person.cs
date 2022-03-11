@@ -4,7 +4,7 @@ using static System.Console;
 
 namespace Packt.Shared
 {
-    public class Person
+    public class Person : IComparable<Person>
     {
         // Fields
         public string Name;
@@ -54,7 +54,7 @@ namespace Packt.Shared
             }
         }
         // event delegate field
-        public EventHandler Shout;
+        public event EventHandler Shout;
         // data field
         public int AngerLevel;
         // method
@@ -64,12 +64,17 @@ namespace Packt.Shared
             if (AngerLevel >= 3)
             {
                 // if something is listening...
-                if (Shout != null)
+                if (Shout != null) // can use C# 6 way of checking if it's null, Shout?.Invoke(this, EventArgs.Empty);
                 {
                     // ...then call the delegate
                     Shout(this, EventArgs.Empty);
                 }
             }
+        }
+
+        public int CompareTo(Person other)
+        {
+            return Name.CompareTo(other.Name);
         }
     }
 }
