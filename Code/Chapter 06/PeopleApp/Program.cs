@@ -83,6 +83,40 @@ namespace PeopleApp
             var dv2 = new DisplacementVector(-2, 7);
             var dv3 = dv1 + dv2;
             WriteLine($"({dv1.X}, {dv1.Y}) + ({dv2.X}, {dv2.Y}) = ({dv3.X}, {dv3.Y})");
+
+            Employee john = new Employee
+            {
+                Name = "John Jones",
+                DateOfBirth = new DateTime(1990, 7, 28)
+            };
+            john.WriteToConsole();
+
+            john.EmployeeCode = "JJ001";
+            john.HireDate = new DateTime(2014, 11, 23);
+            WriteLine($"{john.Name} was hired on {john.HireDate:dd/MM/yy}");
+
+            WriteLine(john.ToString());
+
+            Employee aliceInEmployee = new Employee { Name = "Alice", EmployeeCode = "AA123" };
+            Person aliceInPerson = aliceInEmployee;
+            aliceInEmployee.WriteToConsole();
+            aliceInPerson.WriteToConsole();
+            WriteLine(aliceInEmployee.ToString());
+            WriteLine(aliceInPerson.ToString());
+
+            if (aliceInPerson is Employee)
+            {
+                WriteLine($"{nameof(aliceInPerson)} IS an Employee");
+                Employee explicitAlice = (Employee)aliceInPerson;
+                // safely do something with explicitAlice
+            }
+
+            Employee aliceAsEmployee = aliceInPerson as Employee;
+            if (aliceAsEmployee != null)
+            {
+                WriteLine($"{nameof(aliceInPerson)} AS an Employee");
+                // Do something with aliceAsEmployee
+            }
         }
 
         private static void Harry_Shout(object sender, EventArgs eventArgs)
