@@ -26,6 +26,12 @@
 		},
 		{
 			"path": "WorkingWithImages"
+		},
+		{
+			"path": "Internationalization"
+		},
+		{
+			"path": "Exercise 8.1"
 		}
 	]
 }
