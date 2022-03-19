@@ -8,10 +8,18 @@ The default regular expression checks for at least one digit.
 Enter a regular expression (or press ENTER to use the 
 default): ^[a-z]+$
 Enter some input: apples
-apples matches ^[a-z]+$
+apples matches ^[a-z]+$? True
+Press ESC to end or any key to try again.
+Enter a regular expression (or press ENTER to use the
+default): ^[a-z]+$
+Enter some input: abc123xyz
+abc123xyz matches ^[a-z]+$? False
+Press ESC to end or any key to try again.
 */
 
 using System;
+using static System.Console;
+using System.Text.RegularExpressions;
 
 namespace Exercise_8._2
 {
@@ -19,7 +27,12 @@ namespace Exercise_8._2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            WriteLine("The default regular expression checks for at least one digit.");
+            const string defaultRegularExpressionString = "^[a-z]+$";
+            do
+            {
+                WriteLine("Enter a regular expression (or press ENTER to use the default): ^[a-z]+$");
+            } while(ReadKey().Key != ConsoleKey.Escape);
         }
     }
 }
