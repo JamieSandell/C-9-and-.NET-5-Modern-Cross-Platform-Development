@@ -32,6 +32,8 @@ namespace Exercise_8._2
             do
             {
                 WriteLine("Enter a regular expression (or press ENTER to use the default): ^[a-z]+$");
+                string input = ReadLine();
+                Regex regex = new Regex(input);
             } while(ReadKey().Key != ConsoleKey.Escape);
         }
     }
