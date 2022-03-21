@@ -29,11 +29,19 @@ namespace Exercise_8._2
         {
             WriteLine("The default regular expression checks for at least one digit.");
             const string defaultRegularExpressionString = "^[a-z]+$";
-            do
+            WriteLine("Enter a regular expression (or press ENTER to use the default): ^[a-z]+$");
+            string input = ReadLine();
+            if (string.IsNullOrEmpty(input))
             {
-                WriteLine("Enter a regular expression (or press ENTER to use the default): ^[a-z]+$");
-                string input = ReadLine();
-                Regex regex = new Regex(input);
+                input = defaultRegularExpressionString;
+            }
+            Regex regex = new Regex(input);
+            do
+            {                
+                Write("Enter some input: ");
+                input = ReadLine();
+                WriteLine($"{input} matches {regex.ToString()}? {regex.IsMatch(input)}");
+                WriteLine("Press ESC to end or any key to try again.");
             } while(ReadKey().Key != ConsoleKey.Escape);
         }
     }
