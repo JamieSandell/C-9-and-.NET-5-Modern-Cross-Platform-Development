@@ -33,6 +33,14 @@ namespace Exercise_9._1
             WriteLine("System.Text.Json");
             WriteLine();
             WriteLine("8.) What is the best serialization format to choose for cross-platform compatiblity?");
+            WriteLine("System.Text.JSON as it's a part of .NET Core 3.0, and is more performant as it uses UTF-8 as most network protocols, including HTTP use UTF-8. By default Json.Net uses UTF-16.");
+            WriteLine();
+            WriteLine("9.) Why is it bad to use a string like \\Code\\Chapter01 to represent a path and what should you do instead?");
+            WriteLine("It isn't cross-platform, that would work in Windows, but in Linux it would be /Code/Chapter01.");
+            WriteLine("Instead, you should (in this instance) var newFolder = Combine(GetFolderPath(SpecialFolder.Personal), \"Code\", \"Chapter01);");
+            WriteLine();
+            WriteLine("10.) Where can you find information about NuGet packages and their dependencies?");
+            WriteLine("nuget.org");
         }
     }
 }
