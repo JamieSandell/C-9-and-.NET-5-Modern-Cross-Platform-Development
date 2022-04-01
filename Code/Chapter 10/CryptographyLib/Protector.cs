@@ -72,6 +72,24 @@ namespace Packt.Shared
             return ToBase64String(rsa.SignHash(hashedData, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
         }
 
+        public static byte[] GetRandomKeyOrIV(int size)
+        {
+            var r = RandomNumberGenerator.Create();
+            var data = new byte [size];
+            r.GetNonZeroBytes(data);
+            // data is an array now filled with cryptographically strong random bytes
+            return data;
+        }
+
+        public static void Login(string username, string password)
+        {
+            if (CheckPassword(username, password))
+            {
+                var identity = new GenericIdentity(username, "PacktAuth");
+                var principal = new GenericPrincipal(identity, Users[username].Roles);
+                System.Threading.Thread.CurrentPrincipal = principal;
+            }
+        }
         public static bool ValidateSignature(string data, string signature)
         {
             byte[] dataBytes = Encoding.Unicode.GetBytes(data);
@@ -83,7 +101,7 @@ namespace Packt.Shared
             return rsa.VerifyHash(hashedData, signatureBytes, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
         }
 
-        public static User Register(string username, string password)
+        public static User Register(string username, string password, string[] roles = null)
         {
             // generate a random salt
             var rng = RandomNumberGenerator.Create();
@@ -96,7 +114,8 @@ namespace Packt.Shared
             {
                 Name = username,
                 Salt = saltText,
-                SaltedHashedPassword = saltedHashedPassword
+                SaltedHashedPassword = saltedHashedPassword,
+                Roles = roles
             };
             Users.Add(user.Name, user);
             return user;
