@@ -18,7 +18,7 @@ namespace Packt.Shared
         public string[] Roles { get; set; }
         public string Salt { get; set; }
 
-        [XmlAttribute("")]
+        [XmlAttribute("password")]
         public string SaltedHashedPassword { get; set; }
     }
 }

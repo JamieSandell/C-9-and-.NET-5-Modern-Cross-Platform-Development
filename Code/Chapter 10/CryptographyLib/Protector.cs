@@ -130,7 +130,7 @@ namespace Packt.Shared
             rng.GetBytes(saltBytes);
             var saltText = Convert.ToBase64String(saltBytes);
             // generate the salted and hashed credit card
-            user.SaltedHashedCreditCard = SaltAndHashPassword(password, saltText);
+            user.SaltedHashedCreditCard = SaltAndHashPassword(creditCard, saltText);
             return user;
         }
 
