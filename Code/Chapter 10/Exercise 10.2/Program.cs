@@ -16,7 +16,7 @@ The customer's credit card number and password are currently stored in clear-tex
 The credit card number must be encrypted so that it can be decrypted and used later,
 and the password must be salted and hashed.
 */
-
+using Packt.Shared;
 using System;
 using System.Collections.Generic;
 using static System.Console;
@@ -27,6 +27,7 @@ namespace Exercise_10._2
     {
         static void Main(string[] args)
         {
+            Protector.Register()
         }
     }
 }

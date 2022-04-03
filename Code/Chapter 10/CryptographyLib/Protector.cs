@@ -121,6 +121,19 @@ namespace Packt.Shared
             return user;
         }
 
+        public static User Register(string username, string password, string creditCard, string[] roles = null)
+        {
+            User user = Register(username, password, roles);
+            // generate a random salt
+            var rng = RandomNumberGenerator.Create();
+            var saltBytes = new byte[16];
+            rng.GetBytes(saltBytes);
+            var saltText = Convert.ToBase64String(saltBytes);
+            // generate the salted and hashed credit card
+            user.SaltedHashedCreditCard = SaltAndHashPassword(password, saltText);
+            return user;
+        }
+
         public static bool CheckPassword(string username, string password)
         {
             if (!Users.ContainsKey(username))
