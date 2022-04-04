@@ -17,12 +17,12 @@ The credit card number must be encrypted so that it can be decrypted and used la
 and the password must be salted and hashed.
 */
 using Packt.Shared;
-using System;
 using System.Collections.Generic;
 using static System.Console;
 using static System.Environment;
 using System.IO;
-using System.Xml.Serialization;
+using static System.IO.Path;
+using System.Xml;
 
 namespace Exercise_10._2
 {
@@ -30,19 +30,32 @@ namespace Exercise_10._2
     {
         static void Main(string[] args)
         {
+            Write("Please enter a password to encrypt the credit card numbers: ");
+            string password = ReadLine();
+
             var customers = new List<User>();
+            // Register two customers, note they have the same password
             customers.Add(Protector.Register("Bob Smith", "Pa$$w0rd", "1234-5678-9012-3456"));
-            var xs = new XmlSerializer(typeof(List<User>));
-            string path = Path.Combine(CurrentDirectory, "customers.xml");
-            using (FileStream fileStream = File.Create(path))
+            customers.Add(Protector.Register("Alex Rogers", "Pa$$w0rd", "1234-5678-9012-4315"));
+
+            string xmlFile = Path.Combine(CurrentDirectory, "customers.xml");
+            var xmlWriter = XmlWriter.Create(xmlFile, new XmlWriterSettings { Indent = true });
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteStartElement("customers");
+            foreach(var customer in customers)
             {
-                xs.Serialize(fileStream, customers);
+                xmlWriter.WriteStartElement("customer");
+                xmlWriter.WriteElementString("name", customer.Name);
+                xmlWriter.WriteElementString("creditcard", Protector.Encrypt(customer.CreditCard, password));
+                xmlWriter.WriteElementString("password", customer.SaltedHashedPassword);
+                xmlWriter.WriteEndElement();
             }
-            WriteLine("Written {0:N0} bytes of XML to {1}",
-                arg0: new FileInfo(path).Length,
-                arg1: path);
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Close();
             WriteLine();
-            WriteLine(File.ReadAllText(path));
+            WriteLine("Contents of the protected file:");
+            WriteLine(File.ReadAllText(xmlFile));
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customers>
+  <customer>
+    <name>Bob Smith</name>
+    <creditcard>CN+hDBTvDDSXIiChp5rg+SUSxprY6fMIXB9LmwShQvu9YdUJ4hQz9jh4eVdjptEi</creditcard>
+    <password>g55LwInBDrXj/hWLTWLY8TXbiUYRDL6Rp/pYLBNKKvo=</password>
+  </customer>
+  <customer>
+    <name>Alex Rogers</name>
+    <creditcard>CN+hDBTvDDSXIiChp5rg+RD6cdtDBfXPMw2/C57dOFjWPhjZH9dtivgyULXJHbxV</creditcard>
+    <password>DJUZfxBW5AyX2Ltb4BiE79aUVvbKogttbWIWDwQDLx8=</password>
+  </customer>
+</customers>
