@@ -128,6 +128,12 @@ namespace Packt.Shared
             return user;
         }
 
+        /// <summary>
+        /// Check a user's password that is stored in the private static dictionary Users
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool CheckPassword(string username, string password)
         {
             if (!Users.ContainsKey(username))
@@ -135,9 +141,23 @@ namespace Packt.Shared
                 return false;
             }
             var user = Users[username];
+            
+            return CheckPassword(password, user.Salt, user.SaltedHashedPassword);
+        }
+
+        /// <summary>
+        /// Re-generated the salted and hashed password and compare it against the hashed password
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <param name="hashedPassword"></param>
+        /// <returns></returns>
+        public static bool CheckPassword(string password, string salt, string hashedPassword)
+        {
             // re-generate the salted and hashed password
-            var saltedHashedPassword = SaltAndHashPassword(password, user.Salt);
-            return (saltedHashedPassword == user.SaltedHashedPassword);
+            var saltedHashedPassword = SaltAndHashPassword(password, salt);
+            return (saltedHashedPassword == hashedPassword);
         }
 
         private static string SaltAndHashPassword(string password, string salt)

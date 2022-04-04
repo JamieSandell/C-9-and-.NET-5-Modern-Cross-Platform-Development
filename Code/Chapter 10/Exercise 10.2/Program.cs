@@ -48,6 +48,7 @@ namespace Exercise_10._2
                 xmlWriter.WriteElementString("name", customer.Name);
                 xmlWriter.WriteElementString("creditcard", Protector.Encrypt(customer.CreditCard, password));
                 xmlWriter.WriteElementString("password", customer.SaltedHashedPassword);
+                xmlWriter.WriteElementString("salt", customer.Salt);
                 xmlWriter.WriteEndElement();
             }
             xmlWriter.WriteEndElement();
