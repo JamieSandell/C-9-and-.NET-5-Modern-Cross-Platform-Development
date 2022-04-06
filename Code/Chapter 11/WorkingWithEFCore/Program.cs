@@ -1,6 +1,9 @@
 ﻿using static System.Console;
 using Packt.Shared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 
 namespace WorkingWithEFCore
@@ -10,8 +13,8 @@ namespace WorkingWithEFCore
         static void Main(string[] args)
         {
             //QueryingCategories();
-            //FilteredIncludes();
-            QueryingProducts();
+            FilteredIncludes();
+            //QueryingProducts();
         }
 
         static void FilteredIncludes()
@@ -28,6 +31,7 @@ namespace WorkingWithEFCore
                     foreach (Product p in c.Products)
                     {
                         WriteLine($"{p.ProductName} has {p.Stock} units in stock.");
+                        WriteLine($"ToQueryString: {cats.ToQueryString()}");
                     }
                 }
             }
@@ -51,6 +55,9 @@ namespace WorkingWithEFCore
         {
             using (var db = new Northwind())
             {
+                var loggerFactory = db.GetService<ILoggerFactory>();
+                loggerFactory.AddProvider(new ConsoleLoggerProvider());
+
                 WriteLine("Products that cost more than a price, highest at top.");
                 string input;
                 decimal price;
