@@ -2,6 +2,7 @@
 using Packt.Shared;
 using static System.Console;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace LinqWithEFCore
 {
@@ -13,7 +14,8 @@ namespace LinqWithEFCore
             //JoinCategoriesAndProducts();
             //GroupJoinCategoriesAndProducts();
             //AggregateProducts();
-            CustomExtensionMethods();
+            //CustomExtensionMethods();
+            OutputProductsAsXml();
         }
 
         static void AggregateProducts()
@@ -119,6 +121,21 @@ namespace LinqWithEFCore
                         arg1: item.ProductName,
                         arg2: item.CategoryName);
                 }
+            }
+        }
+
+        static void OutputProductsAsXml()
+        {
+            using (var db = new Northwind())
+            {
+                var productsForXml = db.Products.ToArray();
+                var xml = new XElement("products",
+                    from p in productsForXml
+                    select new XElement("product",
+                        new XAttribute("id", p.ProductID),
+                        new XAttribute("price", p.UnitPrice),
+                        new XElement("name", p.ProductName)));
+                WriteLine(xml.ToString());
             }
         }
     }
